@@ -24,7 +24,8 @@ function calcularPrecioDescuento() {
     } else {
         // Calculamos el nuevo precio con el descuento
         newPrice = (price * (100 - discount) ) / 100;
-        
+
+        // Mostramos nuevo precio
         outputResult.innerText = `El nuevo precio con descuento es S/${newPrice}.`;
     }
 }
