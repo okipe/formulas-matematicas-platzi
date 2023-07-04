@@ -1,129 +1,126 @@
-// SQUARE
+console.group('Cuadrado');
 
-console.group('Square');
+/* CUADRADO */
 
-const squareSide= 5;
-const squarePerimeter = squareSide * 4;
+console.log("Ingrese el valor del lado del cuadrado");
+ 
+/* console.group('Cuadrado') 
 
-const squareArea = squareSide * squareSide;
+const ladoCuadrado = 5;
+const perimetroCuadrado = ladoCuadrado * 4;
+const areaCuadrado = Math.pow(ladoCuadrado,2); // equivalente a ladoCuadrado * ladoCuadrado
+
+// Está raro que yo busque las variables en la consola, por ello usaré console.log
+console.log({
+    ladoCuadrado,
+    perimetroCuadrado,
+    areaCuadrado,
+}) */
+
+
+
+function calcularCuadrado(lado) {
+    return {
+        perimetro: lado * 4,
+        area: lado * lado,
+    }
+}
+
+console.groupEnd('Cuadrado');
+
+console.group('Triangulo');
+
+/* TRIÁNGULO */
+
+console.log("Ingrese los cuatros valores del triángulo");
+
+/* Sin usar funciones */
+const ladoTriangulo1B = 6;
+const ladoTriangulo2B = 6;
+const ladoTrianguloBaseB = 4;
+const semiperimetroTrianguloB = (ladoTriangulo1B + ladoTriangulo2B + ladoTrianguloBaseB) / 2;
+
+const alturaTrianguloB = (2 / ladoTrianguloBaseB) * Math.sqrt(semiperimetroTrianguloB * (semiperimetroTrianguloB - ladoTriangulo1B) * (semiperimetroTrianguloB - ladoTriangulo2B) * (semiperimetroTrianguloB - ladoTrianguloBaseB));
+
+const perimetroTrianguloB = ladoTriangulo1B + ladoTriangulo2B + ladoTrianguloBaseB;
+const areaTrianguloB = (ladoTrianguloBaseB * alturaTrianguloB) / 2;
 
 console.log({
-    squareSide,
-    squarePerimeter,
-    squareArea,
-});
+    ladoTriangulo1B,
+    ladoTriangulo2B,
+    ladoTrianguloBaseB,
+    semiperimetroTrianguloB,
+    alturaTrianguloB,
+    perimetroTrianguloB,
+    areaTrianguloB,
+})
 
-function squareCalc (side) {
+
+function calcularTriangulo(ladoTriangulo1, ladoTriangulo2, ladoTrianguloBase, alturaTriangulo) {
     return {
-        perimeter: side * 4,
-        area: side * side,
+        perimetroTriangulo: ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase,
+        // alturaTriangulo: (2 / ladoTrianguloBase) * Math.sqrt( ( (ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase) / 2) * ((ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase / 2) - ladoTriangulo1) * ((ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase / 2) - ladoTriangulo2) * ((ladoTriangulo1 + ladoTriangulo2 + ladoTrianguloBase / 2) - ladoTrianguloBase)),
+        areaTriangulo: (ladoTrianguloBase * alturaTriangulo) / 2,
     }
-};
+}
 
-console.groupEnd('Square');
+function calcularAlturaTriangulo(ladoTriangulo1, ladoTrianguloBase) {
+   if (ladoTriangulo1 == ladoTrianguloBase) {
+    console.warn('Este no es un triángulo isosceles');
+   } else {
+    // h = raizcuadrada(lado1**2 - (b**2)/4)
+    return Math.sqrt( ( ladoTriangulo1 ** 2) - ( (ladoTrianguloBase ** 2) ) / 4 );
+   }
+}
 
-// TRIANGLE
+console.groupEnd('Triangulo');
 
-console.group('Triangle');
+/* CIRCULO */
 
-const triangleSide1 = 6;
-const triangleSide2 = 6;
-const triangleSideBase = 6;
-const triangleHeight = 4;
+console.group('Circulo');
 
-const trianglePerimeter = triangleSide1 + triangleSide2 + triangleSideBase;
-const triangleArea = (triangleHeight * triangleHeight) / 2;
+const radioCirculo = 3;
+const diametroCirculo = radioCirculo * 2;
+const PI = 3.1415
+const circunferencia = diametroCirculo * PI;
+const areaCirculo = (radioCirculo ** 2) * PI;
 
-function triangleCalc (triangleSide1, triangleSide2, triangleSideBase, triangleHeight) {
+console.log ({
+    radioCirculo,
+    diametroCirculo,
+    PI, 
+    circunferencia, 
+    areaCirculo,
+})
+
+function calcularCirculo(radio) {
+    const diametro = radio * 2;
+    const radioAlCuadrado = Math.pow(radio, 2);
+
     return {
-        trianglePerimeter: triangleSide1 + triangleSide2 + triangleSideBase,
-        triangleArea: (triangleSideBase * triangleHeight) / 2,
+        circunferencia: diametro * Math.PI.toFixed(4), //toFixed limita el número de dígitos
+        area: radioAlCuadrado * Math.PI.toFixed(4),
     }
-};
+}
 
-// Heigh triagle (Pitaphora)
+console.groupEnd('Circulo');
 
-function triangleHeightCalc(triangleSide1, triangleSideBase) {
-    if (triangleSide1 == triangleSideBase) {
-        console.warn('This is not an isosceles triangle')
-    } else {
-        // h = squareRoot(side1**2 - (base**2)/4)
-        return Math.sqrt( (triangleSide1 ** 2) - ( (triangleSideBase ** 2) / 4 ) );
-    }
-};
+console.group('Triángulo Escaleno');
 
-/* Scalene triangle
+console.log('Escriba los 3 valores de los lados del triángulo')
 
-function triangleScaleneHeightCalc(triangleSide1, triangleSide2, triangleSideBase) {
-    return {
-        triangleScaleneHeight: Math.trunc( ( 2 / triangleSideBase) * Math.sqrt( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) * ( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSideBase ) * (( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSide1) * ( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSide2 ) ) )
-    }
-};
-*/
+/* RETO TRIÁNGULO ESCALENO - aprobado por verificador Platzi */
+function calcularTrianguloEscaleno(ladoTriangulo1, ladoTriangulo2, ladoTriangulo3) {
+    if (ladoTriangulo3 != ladoTriangulo2 && ladoTriangulo1 != ladoTriangulo2) {
 
-// Scalene triangle 
+        let a = ladoTriangulo1;
+        let b = ladoTriangulo2;
+        let c = ladoTriangulo3;
 
-/* function triangleScaleneHeightCalc(triangleSide1, triangleSide2, triangleSideBase) {
-    if (triangleSide1 == triangleSide2 && triangleSide2 == triangleSideBase) {
-        console.warn ('This is not an isosceles triangle')
-    } else {
-        return Math.trunc( ( 2 / triangleSideBase) * Math.sqrt( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) * ( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSideBase ) * (( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSide1) * ( ( ( triangleSide1 + triangleSide2 + triangleSideBase ) / 2 ) - triangleSide2 ) ) )
-    }
-}; */
-
-
-function solution(lado1, lado2, lado3) {
-    if (lado1 != lado2 && lado2 != lado3) {
-        return Math.trunc( ( 2 / lado3) * Math.sqrt( ( ( lado1 + lado2 + lado3 ) / 2 ) * ( ( ( lado1 + lado2 + lado3 ) / 2 ) - lado3 ) * ( ( ( lado1 + lado2 + lado3 ) / 2 ) - lado1) * ( ( ( lado1 + lado2 + lado3 ) / 2 ) - lado2 ) ) )
+        return Math.trunc ( ( 2 / a) * Math.sqrt( ( ( c + b + a ) / 2 ) * ( ( ( c + b + a ) / 2 ) - a ) * ( ( ( c + b + a ) / 2 ) - c) * ( ( ( c + b + a ) / 2 ) - b ) ) );
     } else {
         return false;
     }
-};
+}
 
-// Math.truc devuelve número entero
-
-console.log({
-    triangleSide1, 
-    triangleSide2,
-    triangleSideBase,
-    triangleHeight,
-    trianglePerimeter,
-    triangleArea,
-});
-
-
-
-console.groupEnd('Triangle');
-
-// CIRCLE
-
-console.group('Circle');
-
-const circleRadius = 3;
-const circleDiameter = circleRadius * 2;
-const PI = 3.1415;
-
-const circumference = circleDiameter * PI;
-const circleArea = (circleRadius ** 2) * PI;
-
-console.log({
-    circleRadius,
-    circleDiameter,
-    PI,
-    circumference,
-    circleArea,
-});
-
-function circleCalc(radius) {
-    const diameter = radius * 2;
-    const radiussquared = Math.pow(radius, 2);
-
-    return {
-        //to fixed is for limit the quantity of digits.
-        circumference: diameter * Math.PI.toFixed(6),
-        area: radiussquared * Math.PI.toFixed(6),
-    }
-};
-
-console.groupEnd('Circle');
-
+console.groupEnd('Triángulo Escaleno');
