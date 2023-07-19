@@ -1,8 +1,28 @@
 function esPar(lista) {
+    /* // método básico
     if (lista.length % 2) {
         return false;
     } else {
         return true;
+    } */
+
+    return !(lista.length % 2);
+}
+
+function esImpar(lista) {
+    return lista.length % 2;
+}
+
+function calcularMediana(lista) {
+    const listaEsPar = esPar(lista);
+
+    if (listaEsPar) {
+        // Probar cómo calcular lista par
+    } else {
+        const indexMitadListaImpar = Math.floor(lista.length / 2);
+        const medianaListaImpar = lista[indexMitadListaImpar]; 
+        console.log(indexMitadListaImpar);
+        console.log(medianaListaImpar);
     }
 }
     
