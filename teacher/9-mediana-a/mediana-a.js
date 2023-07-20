@@ -22,11 +22,13 @@ function calcularMediana(lista) {
     // Verificamos si la longitud de la lista es par
     const listaEsPar = esPar(lista);
 
+    
     if (listaEsPar) {
+        // Si la longitud de la lista es par, tomamos los dos elementos en medio de la lista
         const indexMitad1ListaPar = (lista.length / 2) - 1;
         const indexMitad2ListaPar = lista.length / 2;
 
-        // calcularPromedio( [ lista[indexMitad1ListaPar], lista[indexMitad2ListaPar] ] );
+        // Creamos una lista con los dos elementos en medio: calcularPromedio( [ lista[indexMitad1ListaPar], lista[indexMitad2ListaPar] ] );
         const listaMitades = [];
         listaMitades.push(lista[indexMitad1ListaPar]); // Así es más facil agregar elementos.
         listaMitades.push(lista[indexMitad2ListaPar]);
@@ -36,8 +38,11 @@ function calcularMediana(lista) {
         return medianaListaPar;
     
     } else {
+        // Si la longitud de la lista es impar, tomamos el elemento en medio de la lista
         const indexMitadListaImpar = Math.floor(lista.length / 2);
         const medianaListaImpar = lista[indexMitadListaImpar]; 
+
+        // Imprimimos el índice y el valor del elemento en medio
         console.log(indexMitadListaImpar);
         console.log(medianaListaImpar);
     }
@@ -48,6 +53,7 @@ function calcularPromedio(lista) {
         return valorAcumulado + nuevoValor;
     }
 
+    // Usamos el método reduce para sumar todos los elementos de la lista
     const sumaLista = lista.reduce(sumarTodosElementos);
     const promedio = sumaLista / lista.length;
     // console.log(promedio);
