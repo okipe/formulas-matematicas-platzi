@@ -8,6 +8,30 @@ function esImpar(lista) {
     return lista.length % 2;
 }
 
+function calcularModa(lista) {
+    const listaCount = {};
+
+    for (let i = 0; i < lista.length; i++) {
+        const elemento = lista[i];
+        
+        if(listaCount[elemento]) {
+            listaCount[elemento] += 1;
+        } else {
+            listaCount[elemento] = 1;
+        }
+    }
+
+    console.log(listaCount);
+
+    const listaArray = Object.entries(listaCount);
+    const listaOrdenada = ordenarListaBidimensional(listaArray, 1);
+    const listaMaxNumber = listaOrdenada[listaOrdenada.length - 1]; // Se pone -1 porquela numeración termina en 0.
+    const moda = listaMaxNumber[0];
+    // console.log({listaCount, listaArray, listaOrdenada, listaMaxNumber}); 
+    // console.log(`La moda es: ${listaMaxNumber[0]}`);
+    return moda;
+}
+
 function calcularMediana(listaDesordenada) {
     const lista = ordenarLista(listaDesordenada);
 
@@ -51,6 +75,17 @@ function calcularPromedio(lista) {
     // console.log(promedio);
     return promedio;
 }
+
+// [ [0,1], [0,1], [0,1] ]
+function ordenarListaBidimensional(listaDesordenada) {
+    function ordenarListaSort(valorAcumulado, nuevoValor) {
+        return valorAcumulado[1] - nuevoValor[1];
+    }
+
+    const lista = listaDesordenada.sort(ordenarListaSort);
+    return lista;
+}
+
     
 function ordenarLista(listaDesordenada) {
     
