@@ -92,7 +92,9 @@ function proyeccionPorPersona(nombrePersona) {
     // Calculamos cuánto sería el aumento si se mantiene la mediana de los porcentajes de crecimiento 
     const aumento = ultimoSalario * medianaPorcentajeCrecimiento; 
     const nuevoSalario = ultimoSalario + aumento;
-    console.log(`El nuevo salario es ${nuevoSalario}`);
+
+    return nuevoSalario;
+    // console.log(`El nuevo salario es ${nuevoSalario}`);
 }
 
 
@@ -150,6 +152,70 @@ Industrias Mokepon: {2020: Array(1), 2021: Array(2), 2022: Array(2), 2023: Array
 .....
 ******************************/
 
+function medianaEmpresaYear(nombre, year) {
+    if (!empresas[nombre]) {
+        console.warm('La empresa no existe');
+        return;
+    } else if (!empresas[nombre][year]) {
+        console.warn('La empresa no dio salarios ese año.');
+    } else {
+        return PlatziMath.calcularMediana(empresas[nombre][year]);
+    }
 
-// Me voy a los cursos de Closures, Scope y Arrays, para entender mejor estas clases.
+    /* CONSOLE **************
+    > medianaEmpresaYear('Industrias Mokepon', 2021)
+    1050
+    ************************/
+}
 
+function proyeccionPorEmpresa(nombre) {
+    if(!empresas[nombre]) {
+        console.warn('La empresa no existe');
+    } else {
+        const empresaYears = Object.keys(empresas[nombre]);
+        // Esto también sale con FOR
+        const listaMedianaYears = empresaYears.map((year) => {
+            return medianaEmpresaYear(nombre, year);
+        }); 
+
+        
+        /* CONSOLE ******
+        console.log({listaMedianaYears});
+        >proyeccionPorEmpresa('Industrias Mokepon')
+        listaMedianaYear: Array(4)
+        0: 850
+        1: 1050
+        2: 1250
+        3: 1250
+        length: 4
+        ***************/
+
+        let porcentajesCrecimiento = [];
+
+        // Iteramos sobre la lista de trabajos de la persona
+        for (let i = 1; i < listaMedianaYears.length; i++) {// empezamos en 1 porque no empezaremos de 'ganar cero dinero'.
+            // Obtenemos los salarios como lista, no como objeto
+            const salarioActual = listaMedianaYears[i];
+            const salarioPasado = listaMedianaYears[i - 1]; // queremos irnos un año hacia atrás.
+
+            // Calculamos el crecimiento en términos absolutos y luego lo convertimos a un porcentaje
+            const crecimiento = salarioActual - salarioPasado;
+            const porcentajeCrecimiento = crecimiento / salarioPasado;
+
+            // Imprimimos el array de porcentajes de crecimiento y su mediana
+            porcentajesCrecimiento.push(porcentajeCrecimiento);
+        }
+
+        // Calculamos la mediana de los porcentajes de crecimiento utilizando una función externa (PlatziMath.calcularMediana)
+        const medianaPorcentajeCrecimiento = PlatziMath.calcularMediana(porcentajesCrecimiento);
+        console.log({porcentajesCrecimiento, medianaPorcentajeCrecimiento}); // Nos da el crecimiento por cada año
+
+        // Obtenemos el último salario registrado para la persona
+        const ultimaMediana = listaMedianaYears[listaMedianaYears.length - 1];
+        // Calculamos cuánto sería el aumento si se mantiene la mediana de los porcentajes de crecimiento 
+        const aumento = ultimaMediana * medianaPorcentajeCrecimiento; 
+        const nuevaMediana = ultimaMediana + aumento;
+
+        return nuevaMediana;
+    }
+}
